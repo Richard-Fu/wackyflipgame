@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Background circle -->
+  <circle cx="32" cy="32" r="30" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+  
+  <!-- Flip character -->
+  <g transform="translate(32,32)">
+    <!-- Body -->
+    <ellipse cx="0" cy="2" rx="8" ry="12" fill="#e74c3c" transform="rotate(45)"/>
+    
+    <!-- Head -->
+    <circle cx="-6" cy="-8" r="6" fill="#f39c12"/>
+    
+    <!-- Arms -->
+    <line x1="-12" y1="-2" x2="-18" y2="-8" stroke="#e74c3c" stroke-width="3" stroke-linecap="round"/>
+    <line x1="4" y1="6" x2="10" y2="12" stroke="#e74c3c" stroke-width="3" stroke-linecap="round"/>
+    
+    <!-- Legs -->
+    <line x1="-2" y1="10" x2="-8" y2="18" stroke="#e74c3c" stroke-width="3" stroke-linecap="round"/>
+    <line x1="6" y1="14" x2="12" y2="20" stroke="#e74c3c" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Motion lines -->
+  <path d="M8 16 Q16 12 24 16" stroke="#ffffff" stroke-width="2" fill="none" opacity="0.7"/>
+  <path d="M40 48 Q48 44 56 48" stroke="#ffffff" stroke-width="2" fill="none" opacity="0.7"/>
+  
+  <!-- Game controller icon (small) -->
+  <g transform="translate(48,16) scale(0.3)">
+    <rect x="0" y="0" width="20" height="12" rx="6" fill="#34495e"/>
+    <circle cx="4" cy="6" r="2" fill="#ffffff"/>
+    <circle cx="16" cy="6" r="2" fill="#ffffff"/>
+  </g>
+</svg> 

@@ -117,12 +117,13 @@
       }
 
       .fullscreen-btn:hover {
-        background: #2980b9;
-        transform: translateY(-1px);
+        background: #8e44ad;
+        color: white;
       }
 
-      .fullscreen-btn:active {
-        transform: translateY(0);
+      .fullscreen-btn.active {
+        background: #8e44ad;
+        color: white;
       }
 
       .fullscreen-btn svg {
@@ -136,62 +137,53 @@
         height: 720px;
         border: none;
         border-radius: 8px;
-        transition: all 0.3s ease;
+        display: block;
+        background: #f5f5f5;
+        will-change: transform, width, height;
+        transform: translateZ(0); /* 启用硬件加速 */
       }
 
-      /* Fullscreen styles */
-      .game-container.fullscreen {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        z-index: 9999;
-        border-radius: 0;
-        padding: 0;
-        background: black;
-        display: flex;
-        flex-direction: column;
+      /* Loading indicator styles */
+      .loading-indicator {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        z-index: 10;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
       }
 
-      .game-container.fullscreen .game-header {
+      .loading-spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid #e0e0e0;
+        border-top: 4px solid #3498db;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 15px;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .loading-indicator p {
+        margin: 0;
+        color: #2c3e50;
+        font-weight: 600;
+      }
+
+      .loading-indicator.hidden {
         display: none;
-      }
-
-      .game-container.fullscreen .game-frame {
-        width: 100vw;
-        height: calc(100vh - 60px);
-        max-width: none;
-        border-radius: 0;
-        flex: 1;
-      }
-
-      .game-container.fullscreen .game-control-bar {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: rgba(44, 62, 80, 0.95);
-        backdrop-filter: blur(10px);
-        border-radius: 0;
-        margin-top: 0;
-        z-index: 10000;
-        opacity: 0;
-        transform: translateY(100%);
-        transition: all 0.3s ease;
-      }
-
-      .game-container.fullscreen:hover .game-control-bar {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      .game-container.fullscreen .fullscreen-btn {
-        background: #e74c3c;
-      }
-
-      .game-container.fullscreen .fullscreen-btn:hover {
-        background: #c0392b;
       }
 
       /* Game Control Bar Styles */
@@ -318,6 +310,11 @@
 
       .changelog-btn:hover {
         background: #34495e;
+        color: white;
+      }
+
+      .refresh-btn:hover {
+        background: #27ae60;
         color: white;
       }
 
@@ -742,6 +739,16 @@
           width: 18px;
           height: 18px;
         }
+
+        /* Mobile fullscreen styles */
+        .game-container.fullscreen .game-control-bar {
+          height: 50px;
+          padding: 10px 15px;
+        }
+
+        .game-container.fullscreen .game-frame {
+          height: calc(100vh - 50px);
+        }
       }
 
       footer {
@@ -940,60 +947,72 @@
         line-height: 1.5;
       }
 
-      /* Mobile fullscreen adjustments */
+      /* Fullscreen styles */
+      .game-container.fullscreen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 9999;
+        background: #000;
+        display: flex;
+        flex-direction: column;
+        will-change: transform;
+        transform: translateZ(0); /* 启用硬件加速 */
+        backface-visibility: hidden; /* 防止渲染问题 */
+      }
+
+      .game-container.fullscreen .game-frame {
+        flex: 1;
+        width: 100%;
+        height: calc(100vh - 60px);
+        border-radius: 0;
+        border: none;
+        outline: none;
+        will-change: auto; /* 全屏时重置will-change */
+        transform: translateZ(0);
+      }
+
       .game-container.fullscreen .game-control-bar {
-        padding: 10px 15px;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
+        height: 60px;
+        margin-top: 0;
+        border-radius: 0;
+        background: rgba(44, 62, 80, 0.95);
+        backdrop-filter: blur(10px);
+        flex-shrink: 0; /* 防止控制栏被压缩 */
       }
-
-      .game-container.fullscreen .game-info {
-        flex-direction: row;
-        gap: 8px;
-      }
-
-      .game-container.fullscreen .game-actions {
-        gap: 8px;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-      }
-
-      .game-container.fullscreen .action-btn {
-        padding: 8px;
-        min-width: 40px;
-      }
-
-      .game-container.fullscreen .action-group {
-        gap: 2px;
-      }
-
-      .game-container.fullscreen .likes-count,
-      .game-container.fullscreen .dislikes-count {
-        font-size: 0.7em;
-      }
-
-      /* Mobile game control bar */
     </style>
   </head>
   <body>
     <div class="container">
       <div class="game-container" id="gameContainer">
-        <div class="game-header">
-          <h3 class="game-title">🎮 Wacky Flip - Physics Flip Game</h3>
+        <!-- 加载指示器 -->
+        <div class="loading-indicator" id="loadingIndicator">
+          <div class="loading-spinner"></div>
+          <p>Loading Wacky Flip Game...</p>
         </div>
 
         <iframe
           src="https://1games.io/embed/wacky-flip"
           width="1280"
           height="720"
-          scrolling="none"
+          scrolling="no"
           frameborder="0"
           class="game-frame"
           id="gameFrame"
           title="Wacky Flip Crazy Physics Game"
           allowfullscreen
+          allow="fullscreen; gamepad; microphone; camera"
+          sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-modals"
+          loading="lazy"
         >
+          <p>
+            Your browser does not support iframes.
+            <a href="https://1games.io/embed/wacky-flip" target="_blank"
+              >Click here to play the game</a
+            >
+          </p>
         </iframe>
 
         <!-- Game Control Bar -->
@@ -1080,6 +1099,18 @@
               <svg viewBox="0 0 24 24" fill="currentColor">
                 <path
                   d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"
+                />
+              </svg>
+            </button>
+
+            <button
+              class="action-btn refresh-btn"
+              id="refreshBtn"
+              title="Refresh game"
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"
                 />
               </svg>
             </button>
@@ -1406,9 +1437,142 @@
       // Fullscreen functionality
       let isFullscreen = false;
       const gameContainer = document.getElementById("gameContainer");
+      const gameFrame = document.getElementById("gameFrame");
       const fullscreenBtn = document.getElementById("fullscreenBtn");
+      const loadingIndicator = document.getElementById("loadingIndicator");
+      const originalSrc = "https://1games.io/embed/wacky-flip";
+
+      // iframe加载状态管理
+      let iframeLoaded = false;
+      let loadTimeout;
+
+      // 显示加载指示器
+      function showLoading() {
+        if (loadingIndicator) {
+          loadingIndicator.classList.remove("hidden");
+        }
+      }
+
+      // 隐藏加载指示器
+      function hideLoading() {
+        if (loadingIndicator) {
+          loadingIndicator.classList.add("hidden");
+        }
+      }
+
+      // iframe加载成功处理
+      function onIframeLoad() {
+        console.log("Iframe loaded successfully");
+
+        // 延迟验证，确保内容真正加载完成
+        setTimeout(() => {
+          // 双重验证iframe状态
+          if (gameFrame.src && gameFrame.src !== "about:blank") {
+            iframeLoaded = true;
+            hideLoading();
+            clearTimeout(loadTimeout);
+            updateFullscreenButtonState(); // 更新按钮状态
+            console.log("Game fully loaded and ready");
+          }
+        }, 1000); // 给游戏1秒时间完全初始化
+      }
+
+      // iframe加载错误处理
+      function onIframeError() {
+        console.log("Iframe failed to load, attempting reload...");
+        iframeLoaded = false;
+        showLoading();
+
+        // 延迟重新加载
+        setTimeout(() => {
+          if (!iframeLoaded) {
+            gameFrame.src = originalSrc;
+          }
+        }, 2000);
+      }
+
+      // 设置加载超时
+      function setLoadTimeout() {
+        clearTimeout(loadTimeout);
+        loadTimeout = setTimeout(() => {
+          if (!iframeLoaded) {
+            console.log("Iframe load timeout, reloading...");
+            onIframeError();
+          }
+        }, 10000); // 10秒超时
+      }
+
+      // iframe保护机制
+      function protectIframe() {
+        if (!gameFrame.src || gameFrame.src === "about:blank") {
+          console.log("Iframe src lost, restoring...");
+          iframeLoaded = false;
+          showLoading();
+          gameFrame.src = originalSrc;
+          setLoadTimeout();
+        }
+
+        // 检查iframe是否真正加载了内容
+        try {
+          const frameDoc =
+            gameFrame.contentDocument || gameFrame.contentWindow.document;
+          if (
+            frameDoc &&
+            frameDoc.body &&
+            frameDoc.body.innerHTML.trim() === ""
+          ) {
+            console.log("Iframe content is empty, reloading...");
+            onIframeError();
+          }
+        } catch (e) {
+          // 跨域时无法访问，这是正常的
+          // 但如果iframe完全空白，浏览器通常不会抛出错误
+        }
+      }
+
+      // 监听iframe事件
+      gameFrame.addEventListener("load", onIframeLoad);
+      gameFrame.addEventListener("error", onIframeError);
+
+      // 初始化加载
+      showLoading();
+      setLoadTimeout();
+
+      // 更新全屏按钮状态
+      function updateFullscreenButtonState() {
+        const fullscreenBtn = document.getElementById("fullscreenBtn");
+        if (!iframeLoaded) {
+          fullscreenBtn.style.opacity = "0.5";
+          fullscreenBtn.title = "Waiting for game to load...";
+          fullscreenBtn.style.cursor = "wait";
+        } else {
+          fullscreenBtn.style.opacity = "1";
+          fullscreenBtn.title = isFullscreen
+            ? "Exit fullscreen"
+            : "Toggle fullscreen";
+          fullscreenBtn.style.cursor = "pointer";
+        }
+      }
+
+      // 初始化按钮状态
+      updateFullscreenButtonState();
+
+      // 定期检查iframe状态
+      setInterval(protectIframe, 5000);
 
       function toggleFullscreen() {
+        // 如果游戏还在加载中，先等待加载完成
+        if (!iframeLoaded) {
+          console.log("Game is still loading, waiting...");
+          const checkLoaded = setInterval(() => {
+            if (iframeLoaded) {
+              clearInterval(checkLoaded);
+              toggleFullscreen();
+            }
+          }, 500);
+          return;
+        }
+
         if (!isFullscreen) {
           enterFullscreen();
         } else {
@@ -1417,22 +1581,20 @@
       }
 
       function enterFullscreen() {
-        try {
-          // Add fullscreen class for custom styling
+        // 使用requestAnimationFrame确保渲染完成
+        requestAnimationFrame(() => {
+          // 预先检查iframe状态
+          protectIframe();
+
+          // 添加全屏类
           gameContainer.classList.add("fullscreen");
-
-          // Try to use the browser's fullscreen API on the container
-          if (gameContainer.requestFullscreen) {
-            gameContainer.requestFullscreen();
-          } else if (gameContainer.webkitRequestFullscreen) {
-            gameContainer.webkitRequestFullscreen();
-          } else if (gameContainer.mozRequestFullScreen) {
-            gameContainer.mozRequestFullScreen();
-          } else if (gameContainer.msRequestFullscreen) {
-            gameContainer.msRequestFullscreen();
-          }
-
           isFullscreen = true;
+          fullscreenBtn.classList.add("active");
+
+          // 强制重绘，避免渲染问题
+          gameFrame.style.display = "none";
+          gameFrame.offsetHeight; // 触发重排
+          gameFrame.style.display = "block";
 
           // Track fullscreen event
           trackEvent("game_fullscreen", {
@@ -1443,28 +1605,25 @@
           // Update button icon for exit fullscreen
           fullscreenBtn.querySelector("svg").innerHTML =
             '<path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/>';
+
+          // Update title
           fullscreenBtn.title = "Exit fullscreen";
-        } catch (error) {
-          console.error("Fullscreen failed:", error);
-        }
+
+          // Hide page scroll
+          document.body.style.overflow = "hidden";
+        });
       }
 
       function exitFullscreen() {
-        try {
-          // Remove fullscreen class
+        requestAnimationFrame(() => {
           gameContainer.classList.remove("fullscreen");
-
-          if (document.exitFullscreen) {
-            document.exitFullscreen();
-          } else if (document.webkitExitFullscreen) {
-            document.webkitExitFullscreen();
-          } else if (document.mozCancelFullScreen) {
-            document.mozCancelFullScreen();
-          } else if (document.msExitFullscreen) {
-            document.msExitFullscreen();
-          }
-
           isFullscreen = false;
+          fullscreenBtn.classList.remove("active");
+
+          // 强制重绘
+          gameFrame.style.display = "none";
+          gameFrame.offsetHeight; // 触发重排
+          gameFrame.style.display = "block";
 
           // Track fullscreen event
           trackEvent("game_fullscreen", {
@@ -1475,10 +1634,18 @@
           // Update button icon for enter fullscreen
           fullscreenBtn.querySelector("svg").innerHTML =
             '<path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>';
+
+          // Update title
           fullscreenBtn.title = "Toggle fullscreen";
-        } catch (error) {
-          console.error("Exit fullscreen failed:", error);
-        }
+
+          // Restore page scroll
+          document.body.style.overflow = "";
+
+          // 延迟检查iframe状态，确保渲染完成
+          setTimeout(() => {
+            protectIframe();
+          }, 500);
+        });
       }
 
       // Fullscreen button click handler
@@ -1494,47 +1661,6 @@
         // Escape key to exit fullscreen
         if (e.key === "Escape" && isFullscreen) {
           exitFullscreen();
-        }
-      });
-
-      // Handle browser fullscreen API changes
-      document.addEventListener("fullscreenchange", () => {
-        if (!document.fullscreenElement && isFullscreen) {
-          gameContainer.classList.remove("fullscreen");
-          isFullscreen = false;
-          fullscreenBtn.querySelector("svg").innerHTML =
-            '<path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>';
-          fullscreenBtn.title = "Toggle fullscreen";
-        }
-      });
-
-      document.addEventListener("webkitfullscreenchange", () => {
-        if (!document.webkitFullscreenElement && isFullscreen) {
-          gameContainer.classList.remove("fullscreen");
-          isFullscreen = false;
-          fullscreenBtn.querySelector("svg").innerHTML =
-            '<path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>';
-          fullscreenBtn.title = "Toggle fullscreen";
-        }
-      });
-
-      document.addEventListener("mozfullscreenchange", () => {
-        if (!document.mozFullScreenElement && isFullscreen) {
-          gameContainer.classList.remove("fullscreen");
-          isFullscreen = false;
-          fullscreenBtn.querySelector("svg").innerHTML =
-            '<path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>';
-          fullscreenBtn.title = "Toggle fullscreen";
-        }
-      });
-
-      document.addEventListener("msfullscreenchange", () => {
-        if (!document.msFullscreenElement && isFullscreen) {
-          gameContainer.classList.remove("fullscreen");
-          isFullscreen = false;
-          fullscreenBtn.querySelector("svg").innerHTML =
-            '<path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>';
-          fullscreenBtn.title = "Toggle fullscreen";
         }
       });
 
@@ -2193,6 +2319,32 @@
         const modal = createChangelogModal();
         document.body.appendChild(modal);
         trackEvent("changelog_opened", { game: "wacky_flip" });
+      });
+
+      // Refresh button functionality
+      document.getElementById("refreshBtn").addEventListener("click", () => {
+        // Show loading indicator
+        showLoading();
+
+        // Reset iframe state
+        iframeLoaded = false;
+
+        // Force reload the iframe
+        const currentSrc = gameFrame.src;
+        gameFrame.src = "about:blank";
+
+        setTimeout(() => {
+          gameFrame.src = originalSrc;
+          setLoadTimeout();
+        }, 100);
+
+        // Track refresh event
+        trackEvent("game_refreshed", {
+          game: "wacky_flip",
+          manual_refresh: true,
+        });
+
+        console.log("Game manually refreshed by user");
       });
 
       function createChangelogModal() {
