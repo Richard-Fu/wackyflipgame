@@ -1,0 +1,35 @@
+{
+  "name": "wacky-flip-game",
+  "version": "1.0.0",
+  "description": "Wacky Flip - Physics-Based Parkour Adventure Game",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx serve .",
+    "build": "echo 'Static site - no build needed'",
+    "start": "npx serve .",
+    "deploy": "vercel --prod"
+  },
+  "keywords": [
+    "wacky-flip",
+    "physics-game",
+    "flip-game",
+    "parkour-game",
+    "html5-game",
+    "browser-game",
+    "stunt-game",
+    "ragdoll-physics"
+  ],
+  "author": "Richard-Fu",
+  "license": "MIT",
+  "homepage": "https://wackyflipgame.me",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Richard-Fu/wackyflipgame.git"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^1.1.1"
+  },
+  "devDependencies": {
+    "serve": "^14.2.1"
+  }
+}

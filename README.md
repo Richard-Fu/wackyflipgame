@@ -6,6 +6,7 @@
 [![HTML5 Game](https://img.shields.io/badge/HTML5-Game-orange?style=flat-square)](https://wackyflipgame.me)
 [![Physics Engine](https://img.shields.io/badge/Physics-Engine-blue?style=flat-square)](https://wackyflipgame.me)
 [![Free to Play](https://img.shields.io/badge/Free-to%20Play-green?style=flat-square)](https://wackyflipgame.me)
+[![Analytics](https://img.shields.io/badge/Analytics-Enabled-yellow?style=flat-square)](https://wackyflipgame.me)
 
 ## 🚀 About Wacky Flip
 
@@ -23,6 +24,9 @@
 - **🎮 Easy Controls** - Simple mouse controls for maximum fun
 - **📱 Responsive Design** - Play on any device, anywhere
 - **🆓 100% Free** - No downloads, no registration required
+- **📊 Analytics Tracking** - Advanced user engagement tracking
+- **🖥️ Fullscreen Mode** - Immersive gaming experience with fullscreen support
+- **🎯 Custom Favicon** - Unique game-themed website icon
 
 ## 🕹️ How to Play Wacky Flip
 
@@ -50,6 +54,7 @@ Visit **[wackyflipgame.me](https://wackyflipgame.me)** and start playing instant
 - **Optimized Performance** - Fast loading, responsive controls
 - **Cross-Platform** - Works on desktop, tablet, and mobile
 - **SEO Optimized** - Easy to find and share
+- **Analytics Integration** - Comprehensive user behavior tracking
 
 ## 🎮 Play Wacky Flip Now
 
@@ -81,6 +86,7 @@ This repository contains the source code for the **Wacky Flip Game** website hos
 ```
 wackyflipgame/
 ├── index.html          # Main game page
+├── package.json        # Dependencies and scripts
 ├── sitemap.xml         # SEO sitemap
 ├── robots.txt          # Search engine directives
 └── README.md           # This file
@@ -93,6 +99,7 @@ wackyflipgame/
 - **User Rating System** - LocalStorage-based rating functionality
 - **Comment System** - User feedback without database dependency
 - **Game Embedding** - Secure iframe integration
+- **Analytics Integration** - Vercel Analytics & Google Analytics tracking
 
 ### Technologies Used
 
@@ -100,18 +107,94 @@ wackyflipgame/
 - **CSS3** - Responsive grid layouts and animations
 - **JavaScript** - Interactive features and game controls
 - **LocalStorage** - Client-side data persistence
+- **Vercel Analytics** - User engagement tracking
+- **Google Analytics** - Comprehensive website analytics
+
+### Analytics Features
+
+- **📊 User Behavior Tracking** - Game interactions, ratings, comments
+- **🎯 Event Tracking** - Game loads, FAQ interactions, user actions
+- **📈 Performance Monitoring** - Page views, engagement metrics
+- **🔍 SEO Analytics** - Search engine optimization tracking
 
 ## 🚀 Getting Started
 
+### For Players
+
 1. **Play Online**: Visit [wackyflipgame.me](https://wackyflipgame.me) for instant access
-2. **Local Development**: Clone this repository and open `index.html`
-3. **Deployment**: Upload files to any web server
+
+### For Developers
+
+1. **Clone Repository**:
 
 ```bash
 git clone https://github.com/Richard-Fu/wackyflipgame.git
 cd wackyflipgame
-# Open index.html in your browser
 ```
+
+2. **Install Dependencies**:
+
+```bash
+npm install
+```
+
+3. **Local Development**:
+
+```bash
+npm run dev
+```
+
+4. **Deploy to Vercel**:
+
+```bash
+npm run deploy
+```
+
+### Dependencies
+
+- **@vercel/analytics** ^1.1.1 - User engagement tracking
+- **serve** ^14.2.1 - Local development server (dev dependency)
+
+## 🎮 Game Controls & Features
+
+### Basic Controls
+
+- **Hold Left Mouse Button**: Adjust jump power and angle
+- **Release Mouse**: Launch into the air
+- **Click in Air**: Start flip action
+- **Click Again**: Lock landing (timing is crucial)
+
+### Fullscreen Mode
+
+- **Click Fullscreen Button**: Enter immersive fullscreen mode
+- **Press 'F' Key**: Toggle fullscreen mode
+- **Press 'Escape'**: Exit fullscreen mode
+- **Mobile Support**: Touch-friendly fullscreen controls
+
+## 📈 Analytics Integration
+
+### Google Analytics (G-GGT9J10SJH)
+
+- **Page Views** - Track website visits and user sessions
+- **Event Tracking** - Game interactions, ratings, comments
+- **User Behavior** - Flow analysis and engagement metrics
+- **Performance** - Load times and technical metrics
+
+### Vercel Analytics
+
+- **Real-time Data** - Live user activity monitoring
+- **Performance Insights** - Core Web Vitals tracking
+- **User Demographics** - Geographic and device analytics
+- **Custom Events** - Game-specific interaction tracking
+
+### Tracked Events
+
+- `page_view` - Initial page load
+- `game_loaded` - Game iframe successfully loaded
+- `game_rated` - User rating submission
+- `comment_posted` - User comment submission
+- `faq_interaction` - FAQ section engagement
+- `game_fullscreen` - Fullscreen mode toggle
 
 ## 🎯 SEO Keywords
 
@@ -136,6 +219,7 @@ This **Wacky Flip Game** website is optimized for:
 - 📱 **Mobile Responsive** - Perfect on all devices
 - ♿ **Accessibility** - WCAG guidelines compliance
 - 🎯 **User Experience** - Intuitive design and navigation
+- 📊 **Analytics Ready** - Comprehensive tracking setup
 
 ## 🤝 Contributing
 
